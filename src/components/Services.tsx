@@ -6,7 +6,7 @@ import Link from 'next/link';
 function Services() {
   return (
     <div className="max-w-xs w-full">
-    <Link href="#">  
+    <Link href={'/dashboard'}>  
       <div
         className={cn(
           "group w-fulloverflow-hidden relative card h-96 rounded-md shadow-xl mx-auto flex flex-col justify-end p-4 border border-transparent dark:border-neutral-800",
