@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import Pichart from "./Pichart";
 
 function CalcLayout() {
   const [invest, setInvest] = useState("");
@@ -79,7 +80,9 @@ function CalcLayout() {
           </div>
           </div>
         </div>
-        <div className="2">world</div>
+        <div className="2">
+          <Pichart/>
+        </div>
       </div>
     </div>
   );
