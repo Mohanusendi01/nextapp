@@ -7,11 +7,11 @@ function CalcLayout() {
   const [rreturn, setReturn] = useState("");
   return (
     <div className="w-4/5 h-4/5 bg-red-700 p-4 ">
-      <div className="grid gap-4 grid-cols-2 ">
+      <div className="grid gap-4 grid-cols-2 h-full ">
         <div className="1">
-          <div className=" grid grid-rows-2 gap-4 bg-black h-full">
-          <div className="flex flex-col justify-evenly bg-slate-600 h-full">
-            <div className="grid grid-cols-2 ">
+          <div className=" grid grid-rows-2 gap-4 h-full">
+          <div className="flex flex-col justify-evenly  h-full">
+            <div className="flex justify-between ">
               <label htmlFor="invest ">Monthly Investment</label>
               <input
                 className="w-10 justify-self-end text-black text-center"
@@ -29,7 +29,7 @@ function CalcLayout() {
               max="11"
               onChange={(e) => setInvest(e.target.value)}
             />
-            <div className="grid grid-cols-2 ">
+            <div className="flex justify-between">
               <label htmlFor="invest">Monthly Investment</label>
               <input
                 className="w-10 justify-self-end text-black text-center"
@@ -47,7 +47,7 @@ function CalcLayout() {
               max="11"
               onChange={(e) => setInvest(e.target.value)}
             />
-            <div className="grid grid-cols-2 items-end ">
+            <div className="flex justify-between">
               <label htmlFor="invest place-items-start">Monthly Investment</label>
               <input
                 className="w-10 justify-self-end  text-black text-center"
@@ -67,9 +67,15 @@ function CalcLayout() {
             />
           </div>
           <div className='mt-6'>
+            <div className="flex justify-between">
             <p className="1">Invested Amount</p>
-            <p className="2">Est. Returns </p>
+            <p>01</p>
+            </div>
+            <div className="flex justify-between"><p className="2">Est. Returns </p>
+            <p>02</p></div>
+           <div className="flex justify-between"> 
             <p className="3">Total Value</p>
+            <p>03</p></div>
           </div>
           </div>
         </div>
