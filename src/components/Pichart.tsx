@@ -1,10 +1,11 @@
 import React from 'react'
 import { PieChart, Pie, Sector, Cell, ResponsiveContainer } from 'recharts';
 interface Props{
-    invest:string
+    invest:number
 }
 function Pichart({invest}:Props) {
-    const fillValue = (parseInt(invest)/1000000)*360
+    console.log("invest:",invest)
+    const fillValue = (invest/1000000)*360
     const remainedValue = 360 - fillValue
     const data = [
         { name: 'invested', value: fillValue },
@@ -12,7 +13,7 @@ function Pichart({invest}:Props) {
       ];
       const COLORS = ["#0088FE", "#00C49F"];
   return (
-    <div className=''>
+    <div className='first-line:'>
         <PieChart width={300} height={400} >
         <Pie
           data={data}
