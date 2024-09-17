@@ -1,91 +1,87 @@
-"use client";
-import React, { useState } from "react";
-import Pichart from "./Pichart";
+// pages/index.tsx
+'use client'
+import React, { useState } from 'react';
+import { calculateSIP } from '@/app/utils/Sipcalculator';
 
-function CalcLayout() {
-  const [invest, setInvest] = useState("");
-  const [rate, setRate] = useState("");
-  const [rreturn, setReturn] = useState("");
+const SIPCalculator: React.FC = () => {
+  const [monthlyInvestment, setMonthlyInvestment] = useState<number>(5000); // Default value ₹5000
+  const [annualInterestRate, setAnnualInterestRate] = useState<number>(12); // Default value 12%
+  const [durationInYears, setDurationInYears] = useState<number>(10); // Default value 10 years
+  const [futureValue, setFutureValue] = useState<number | null>(null);
+  const [invest, setInvest] = useState<number | null>(null);
+  const [rrturn,setReturn] = useState<number | null>(null);
+  
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const result = calculateSIP(monthlyInvestment, annualInterestRate, durationInYears);
+    setFutureValue(result);
+  };
+
   return (
-    <div className="w-4/5 h-4/5 bg-red-700 p-4 ">
-      <div className="grid gap-4 grid-cols-2 h-full ">
-        <div className="1">
-          <div className=" grid grid-rows-2 gap-4 h-full">
-          <div className="flex flex-col justify-evenly  h-full">
-            <div className="flex justify-between ">
-              <label htmlFor="invest ">Monthly Investment</label>
-              <input
-                className="w-10 justify-self-end text-black text-center"
-                type="text"
-                id="nub"
-                value={`${invest}`}
-                onChange={(e) => setInvest(e.target.value)}
-              />
-            </div>
-            <input
-              type="range"
-              id="invest"
-              name="invest"
-              min="0"
-              max="11"
-              onChange={(e) => setInvest(e.target.value)}
-            />
-            <div className="flex justify-between">
-              <label htmlFor="invest">Monthly Investment</label>
-              <input
-                className="w-10 justify-self-end text-black text-center"
-                type="text"
-                id="nub"
-                value={`${invest}%`}
-                onChange={(e) => setInvest(e.target.value)}
-              />
-            </div>
-            <input
-              type="range"
-              id="invest"
-              name="invest"
-              min="0"
-              max="11"
-              onChange={(e) => setInvest(e.target.value)}
-            />
-            <div className="flex justify-between">
-              <label htmlFor="invest place-items-start">Monthly Investment</label>
-              <input
-                className="w-10 justify-self-end  text-black text-center"
-                type="text"
-                id="nub"
-                value={`${invest}Yr`}
-                onChange={(e) => setInvest(e.target.value)}
-              />
-            </div>
-            <input
-              type="range"
-              id="invest"
-              name="invest"
-              min="0"
-              max="11"
-              onChange={(e) => setInvest(e.target.value)}
-            />
-          </div>
-          <div className='mt-6'>
-            <div className="flex justify-between">
-            <p className="1">Invested Amount</p>
-            <p>01</p>
-            </div>
-            <div className="flex justify-between"><p className="2">Est. Returns </p>
-            <p>02</p></div>
-           <div className="flex justify-between"> 
-            <p className="3">Total Value</p>
-            <p>03</p></div>
-          </div>
-          </div>
+    <div className='w-3/5 h-3/5 text-center bg-slate-300 p-4'>
+      <h1>SIP Calculator</h1>
+      <form onSubmit={handleSubmit}>
+        <div className='flex justify-center flex-col '>
+        <div className='flex justify-between'>
+          <label htmlFor="monthlyInvestment">Monthly Investment (₹): </label>
+          <input
+           className='p-2'
+            id="monthlyInvestment"
+            type="number"
+            value={monthlyInvestment}
+            onChange={(e) => setMonthlyInvestment(Number(e.target.value))}
+            required
+          />
         </div>
-        <div className="2">
-          <Pichart/>
+        <input type="range" min={0} max={100} onChange={(e)=> setMonthlyInvestment(Number(e.target.value))} />
+        <div className='flex justify-between'>
+          <label htmlFor="annualInterestRate">Annual Interest Rate (%): </label>
+          <input
+            id="annualInterestRate"
+            type="number"
+            value={annualInterestRate}
+            onChange={(e) => setAnnualInterestRate(Number(e.target.value))}
+            required
+          />
         </div>
-      </div>
+        <input type="range" min={0} max={100} onChange={(e)=> setAnnualInterestRate(Number(e.target.value))} />
+        <div className='flex justify-between'>
+          <label htmlFor="durationInYears">Duration (Years): </label>
+          <input
+            id="durationInYears"
+            type="number"
+            value={durationInYears}
+            onChange={(e) => setDurationInYears(Number(e.target.value))}
+            required
+          />
+        </div>
+        <input type="range" min={0} max={100}  onChange={(e)=> setDurationInYears(Number(e.target.value))}/>
+        </div>
+       <div className='flex justify-between'>
+       <p>Invested Amount</p>
+       <p>01</p>
+       </div>
+       <div className='flex justify-between'>
+       <p>Est. Returns</p>
+       <p>01</p>
+       </div>
+       <div className='flex justify-between'>
+       <p>Total Value</p>
+       <p>{futureValue !== null && (
+          <h2> ₹{futureValue.toFixed(2)}</h2>
+      )}</p>
+       </div>
+        <button type="submit" style={{ marginTop: '20px' }}>Calculate</button>
+      </form>
+
+      {futureValue !== null && (
+        <div style={{ marginTop: '20px' }}>
+          <h2>Future Value of SIP: ₹{futureValue.toFixed(2)}</h2>
+        </div>
+      )}
     </div>
   );
-}
+};
 
-export default CalcLayout;
+export default SIPCalculator;
